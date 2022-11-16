@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    tools{
+      maven 'MAVEN_HOME'
+     
+    }
+    stages {
+        stage('Welcome POM-VERSION-CHANGED..!!!') {
+            steps {
+                   echo 'POM-VERSION-CHANGED Steps'
+                  }
+               }
+        stage('GetCodeFromGitHub'){
+            steps{
+                  git branch: 'main', credentialsId: 'bb8d4756-6907-45d4-826c-10e7434ae182', url: 'https://github.com/omprakashpandit/POM-VERSION.git'
+                 } 
+               }
+       stage('Clean and Install') {
+            steps {
+                echo 'Clean and Install Steps'
+                bat 'mvn validate -DbumpMajor'
+            }
+        }
+}
+        
+}
